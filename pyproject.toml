@@ -5,7 +5,10 @@ description = "Add your description here"
 authors = [
     { name = "yu7400ki", email = "yu7400ki@gmail.com" }
 ]
-dependencies = []
+dependencies = [
+    "llama-cpp-python>=0.1.77",
+    "pydantic>=2.1.1",
+]
 readme = "README.md"
 requires-python = ">= 3.11"
 
@@ -16,6 +19,43 @@ build-backend = "hatchling.build"
 [tool.rye]
 managed = true
 dev_dependencies = []
+dev-dependencies = [
+    "black>=23.7.0",
+    "ruff>=0.0.280",
+]
+
+[tool.rye.scripts]
+"lint" = { chain = [ "lint:ruff", "lint:black" ] }
+"lint:ruff" = "ruff llama_chat"
+"lint:black" = "black --check llama_chat"
+"fmt" = { chain = [ "fmt:ruff", "fmt:black" ] }
+"fmt:ruff" = "ruff llama_chat --fix"
+"fmt:black" = "black llama_chat"
 
 [tool.hatch.metadata]
 allow-direct-references = true
+
+[tool.black]
+target-version = ["py311"]
+line-length = 120
+exclude = """
+(
+    .git
+    | .venv
+    | .ruff_cache
+)
+"""
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+exclude = [
+    ".git",
+    ".venv",
+    ".ruff_cache",
+    "__init__.py",
+]
+select = ["E", "F", "I", "N"]
+fixable = ["E", "F", "I", "N"]
+unfixable = ["F401", "F841"]
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
