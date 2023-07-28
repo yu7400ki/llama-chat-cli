@@ -10,6 +10,8 @@
 annotated-types==0.5.0
 diskcache==5.6.1
 llama-cpp-python==0.1.77
+mypy==1.4.1
+mypy-extensions==1.0.0
 numpy==1.25.1
 pydantic==2.1.1
 pydantic-core==2.4.0
